@@ -42,13 +42,18 @@ i{
     background-color: lavender;
 }
 
+#ScoreTemporel{
+    margin-top: 40px;
+    border-top: 2px solid black;
+}
+
 .TotalNote{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-#BaseNote, #ImpactNote, #ExploitNote{
+#BaseNote, #ImpactNote, #ExploitNote, #TemporelNote{
     background-color: rgb(13, 110, 253);
     color: white;
     padding: 5px;
@@ -60,7 +65,7 @@ i{
     border-radius: 10px;
 }
 
-#scoreBase{
+.scoreBase{
     display: flex;
 }
 
@@ -100,6 +105,7 @@ i{
 
 label{
     margin: 15px 0 15px 0;
+    font-weight: 600;
 }
 
 select{

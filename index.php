@@ -1,9 +1,8 @@
 <?php
 // Inclure le fichier Calcule_score.php pour le traitement du formulaire
 include "Calcule_score.php";
+$score = calculateScores(); // inclure la fonction
 
-// var_dump($_GET);
-// var_dump($baseScoreFormat);
 ?>
 
 <!DOCTYPE html>
@@ -45,27 +44,26 @@ include "Calcule_score.php";
 
     <h1 class="titre">CVSS Calculator V2</h1>
 
-
-    <form action="" method="GET" class="form">
+    <form action="" method="GET" id="Form" class="form">
 
         <fieldset>
 
-
-            <div id="header">Mesures du score de base</div>
+            <legend id="header">Mesures du score de base</legend>
 
             <div class="note">
 
-                <?php if (isset($baseScoreFormat) && isset($impactFormat) && isset($exploitabilityFormat)) : ?>
+                <?php if (!empty($score['baseScoreFormat']) && !empty($score['impactFormat']) && !empty($score['exploitabilityFormat']) && !empty($score['TemporalScoreFormat'])) : ?>
                     <div class="TotalNote">
-                        <p id="ExploitNote"> Note d'exploitabilité : <?php echo $exploitabilityFormat; ?> </p>
-                        <p id="BaseNote"> Note de base : <?php echo $baseScoreFormat; ?> </p>
-                        <p id="ImpactNote"> Note d'impact : <?php echo $impactFormat; ?> </p>
+                        <p id="ExploitNote"> Note d'exploitabilité : <?php echo $score["exploitabilityFormat"]; ?> </p>
+                        <p id="BaseNote"> Note de base : <?php echo $score["baseScoreFormat"]; ?> </p>
+                        <p id="ImpactNote"> Note d'impact : <?php echo $score["impactFormat"]; ?> </p>
+                        <p id="TemporelNote"> Note temporel : <?php echo $score['TemporalScoreFormat']; ?> </p>
                     </div>
                 <?php endif; ?>
 
             </div>
 
-            <div id="scoreBase">
+            <div class="scoreBase">
                 <div class="row g-3" id="exploit">
 
                     <h2>Métriques d'exploitabilité</h2>
@@ -74,9 +72,9 @@ include "Calcule_score.php";
 
                         <label for="AV">Access Vector (AV):</label>
                         <select name="AV" id="AV" class="form-control">
-                            <option value="L">Local (AV:L)</option>
-                            <option value="M">Réseau adjacent (AV:A)</option>
-                            <option value="H">Network (AV:N)</option>
+                            <option value="L" <?= isset($_GET['AV']) && $_GET['AV'] == 'L' ? 'selected' : '' ?>>Local (AV:L)</option>
+                            <option value="M" <?= isset($_GET['AV']) && $_GET['AV'] == 'M' ? 'selected' : '' ?>>Réseau adjacent (AV:A)</option>
+                            <option value="H" <?= isset($_GET['AV']) && $_GET['AV'] == 'H' ? 'selected' : '' ?>>Network (AV:N)</option>
                         </select>
 
                     </div>
@@ -85,9 +83,9 @@ include "Calcule_score.php";
 
                         <label for="AC">Access Complexity (AC):</label>
                         <select name="AC" id="AC" class="form-control">
-                            <option value="L">Low (AC:L)</option>
-                            <option value="M">Medium (AC:M)</option>
-                            <option value="H">High (AC:H)</option>
+                            <option value="L" <?= isset($_GET['AC']) && $_GET['AC'] == 'L' ? 'selected' : '' ?>>Low (AC:L)</option>
+                            <option value="M" <?= isset($_GET['AC']) && $_GET['AC'] == 'M' ? 'selected' : '' ?>>Medium (AC:M)</option>
+                            <option value="H" <?= isset($_GET['AC']) && $_GET['AC'] == 'H' ? 'selected' : '' ?>>High (AC:H)</option>
                         </select>
 
                     </div>
@@ -96,15 +94,13 @@ include "Calcule_score.php";
 
                         <label for="PR">Authentication (Au):</label>
                         <select name="PR" id="PR" class="form-control">
-                            <option value="N">None (Au:N)</option>
-                            <option value="S">Single (Au:S)</option>
-                            <option value="M">Multiple (Au:M)</option>
+                            <option value="N" <?= isset($_GET['PR']) && $_GET['PR'] == 'N' ? 'selected' : '' ?>>None (Au:N)</option>
+                            <option value="S" <?= isset($_GET['PR']) && $_GET['PR'] == 'S' ? 'selected' : '' ?>>Single (Au:S)</option>
+                            <option value="M" <?= isset($_GET['PR']) && $_GET['PR'] == 'M' ? 'selected' : '' ?>>Multiple (Au:M)</option>
                         </select>
 
                     </div>
                 </div>
-
-
 
                 <div class="row g-3" id="impact">
 
@@ -114,9 +110,9 @@ include "Calcule_score.php";
 
                         <label for="C">Confidentiality Impact (C):</label>
                         <select name="C" id="C" class="form-control">
-                            <option value="N">None (C:N)</option>
-                            <option value="P">Partial (C:P)</option>
-                            <option value="C">Complete (C:C)</option>
+                            <option value="N" <?= isset($_GET['C']) && $_GET['C'] == 'N' ? 'selected' : '' ?>>None (C:N)</option>
+                            <option value="P" <?= isset($_GET['C']) && $_GET['C'] == 'P' ? 'selected' : '' ?>>Partial (C:P)</option>
+                            <option value="C" <?= isset($_GET['C']) && $_GET['C'] == 'C' ? 'selected' : '' ?>>Complete (C:C)</option>
                         </select>
 
                     </div>
@@ -125,9 +121,9 @@ include "Calcule_score.php";
 
                         <label for="I">Integrity Impact (I):</label>
                         <select name="I" id="I" class="form-control">
-                            <option value="N">None (I:N)</option>
-                            <option value="P">Partial (I:P)</option>
-                            <option value="C">Complete (I:C)</option>
+                            <option value="N" <?= isset($_GET['I']) && $_GET['I'] == 'N' ? 'selected' : '' ?>>None (I:N)</option>
+                            <option value="P" <?= isset($_GET['I']) && $_GET['I'] == 'P' ? 'selected' : '' ?>>Partial (I:P)</option>
+                            <option value="C" <?= isset($_GET['I']) && $_GET['I'] == 'C' ? 'selected' : '' ?>>Complete (I:C)</option>
                         </select>
 
                     </div>
@@ -136,9 +132,9 @@ include "Calcule_score.php";
 
                         <label for="A">Availability Impact (A):</label>
                         <select name="A" id="A" class="form-control">
-                            <option value="N">None (A:N)</option>
-                            <option value="P">Partial (A:P)</option>
-                            <option value="C">Complete (A:C)</option>
+                            <option value="N" <?= isset($_GET['A']) && $_GET['A'] == 'N' ? 'selected' : '' ?>>None (A:N)</option>
+                            <option value="P" <?= isset($_GET['A']) && $_GET['A'] == 'P' ? 'selected' : '' ?>>Partial (A:P)</option>
+                            <option value="C" <?= isset($_GET['A']) && $_GET['A'] == 'C' ? 'selected' : '' ?>>Complete (A:C)</option>
                         </select>
 
                     </div>
@@ -146,43 +142,25 @@ include "Calcule_score.php";
                 </div>
 
             </div>
-            <div class="submitform">
-                <button type="submit" class="btn btn-primary">Lancer le calcul</button>
-            </div>
 
         </fieldset>
 
-    </form>
+        <fieldset id="ScoreTemporel">
 
+            <legend id="header">Mesures de score temporel</legend>
 
-
-    <form action="" method="GET" class="form">
-
-        <fieldset>
-
-
-            <div id="header">Mesures de score temporel</div>
-
-            <div class="note">
-
-                <?php if (isset($baseScoreFormat)) : ?>
-                    <p id="note"> Note de base : <?php echo $baseScoreFormat; ?> </p>
-                <?php endif; ?>
-
-            </div>
-
-            <div id="scoreBase">
+            <div class="scoreBase">
                 <div class="row g-3" id="tempo">
 
                     <div class="col-md-4">
 
                         <label for="E">Exploitabilité (E):</label>
                         <select name="E" id="E" class="form-control">
-                            <option value="ND">Not Defined (E:ND)</option>
-                            <option value="U">Unproven That exploit exists (E:U)</option>
-                            <option value="POC">Proof of concept code (E:POC)</option>
-                            <option value="F">Functional exploit exists (E:F)</option>
-                            <option value="H">High (E:H)</option>
+                            <option value="ND" <?= isset($_GET['E']) && $_GET['E'] == 'ND' ? 'selected' : '' ?>>Not Defined (E:ND)</option>
+                            <option value="U" <?= isset($_GET['E']) && $_GET['E'] == 'U' ? 'selected' : '' ?>>Unproven That exploit exists (E:U)</option>
+                            <option value="POC" <?= isset($_GET['E']) && $_GET['E'] == 'POC' ? 'selected' : '' ?>>Proof of concept code (E:POC)</option>
+                            <option value="F" <?= isset($_GET['E']) && $_GET['E'] == 'F' ? 'selected' : '' ?>>Functional exploit exists (E:F)</option>
+                            <option value="H" <?= isset($_GET['E']) && $_GET['E'] == 'H' ? 'selected' : '' ?>>High (E:H)</option>
                         </select>
 
                     </div>
@@ -191,11 +169,11 @@ include "Calcule_score.php";
 
                         <label for="RL">Remediation Level (RL):</label>
                         <select name="RL" id="RL" class="form-control">
-                            <option value="ND">Not Defined (RL:ND)</option>
-                            <option value="OF">Official fix (RL:OF)</option>
-                            <option value="TF">Temporary fix (RL:TF)</option>
-                            <option value="W">Workaround (RL:W)</option>
-                            <option value="U">Unavailable (RL:U)</option>
+                            <option value="ND" <?= isset($_GET['RL']) && $_GET['RL'] == 'ND' ? 'selected' : '' ?>>Not Defined (RL:ND)</option>
+                            <option value="OF" <?= isset($_GET['RL']) && $_GET['RL'] == 'OF' ? 'selected' : '' ?>>Official fix (RL:OF)</option>
+                            <option value="TF" <?= isset($_GET['RL']) && $_GET['RL'] == 'TF' ? 'selected' : '' ?>>Temporary fix (RL:TF)</option>
+                            <option value="W" <?= isset($_GET['RL']) && $_GET['RL'] == 'W' ? 'selected' : '' ?>>Workaround (RL:W)</option>
+                            <option value="U" <?= isset($_GET['RL']) && $_GET['RL'] == 'U' ? 'selected' : '' ?>>Unavailable (RL:U)</option>
                         </select>
 
                     </div>
@@ -204,30 +182,27 @@ include "Calcule_score.php";
 
                         <label for="RC">Report Confidence (RC):</label>
                         <select name="RC" id="RC" class="form-control">
-                            <option value="ND">Not Defined (RC:ND)</option>
-                            <option value="UC">Unconfirmed (RC:UC)</option>
-                            <option value="UR">Uncorroborated (RC:UR)</option>
-                            <option value="C">Confirmed (RC:C)</option>
+                            <option value="ND" <?= isset($_GET['RC']) && $_GET['RC'] == 'ND' ? 'selected' : '' ?>>Not Defined (RC:ND)</option>
+                            <option value="UC" <?= isset($_GET['RC']) && $_GET['RC'] == 'UC' ? 'selected' : '' ?>>Unconfirmed (RC:UC)</option>
+                            <option value="UR" <?= isset($_GET['RC']) && $_GET['RC'] == 'UR' ? 'selected' : '' ?>>Uncorroborated (RC:UR)</option>
+                            <option value="C" <?= isset($_GET['RC']) && $_GET['RC'] == 'C' ? 'selected' : '' ?>>Confirmed (RC:C)</option>
                         </select>
 
                     </div>
                 </div>
-
-
-            </div>
-            <div class="submitform">
-                <button type="submit" class="btn btn-primary">Lancer le calcul</button>
             </div>
 
         </fieldset>
 
+        <div class="submitform">
+            <button type="submit" class="btn btn-primary">Lancer le calcul</button>
+            <button type="button" id="resetBtn" class="btn btn-primary">Réinitialiser le formulaire</button>
+        </div>
+
     </form>
 
 
-
-
-
-
+    <script src="/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
