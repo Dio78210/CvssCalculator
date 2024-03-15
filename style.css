@@ -1,4 +1,4 @@
-*{
+/* *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -42,7 +42,7 @@ i{
     background-color: lavender;
 }
 
-#ScoreTemporel{
+#ScoreTemporel, #ScoreEnvironmental{
     margin-top: 40px;
     border-top: 2px solid black;
 }
@@ -53,7 +53,10 @@ i{
     align-items: center;
 }
 
-#BaseNote, #ImpactNote, #ExploitNote, #TemporelNote{
+.TotalNote p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(13, 110, 253);
     color: white;
     padding: 5px;
@@ -61,6 +64,19 @@ i{
     text-align: center;
     font-weight: bold;
     height: 20%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+
+#BaseNote, #ImpactNote, #ExploitNote, #TemporelNote, #EnvironmentalNote, #AdjustedImpactNote, #OverallScoreNote{
+    background-color: rgb(13, 110, 253);
+    color: white;
+    padding: 5px;
+    width: 13%;
+    text-align: center;
+    font-weight: bold;
+    height: 90px;
     margin-top: 10px;
     border-radius: 10px;
 }
@@ -85,7 +101,7 @@ i{
     text-align: center;
 }
 
-#tempo{
+#tempo, #environmental{
     width: 100%;
     text-align: center;
 }
@@ -126,4 +142,138 @@ select{
 
 .btn{
     font-weight: bold;
+} */
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0e0e0e; /* Couleur de fond */
+    color: #ffffff; /* Couleur du texte */
+}
+
+#scroll_to_top {
+    position: fixed;
+    width: 25px;
+    height: 25px;
+    bottom: 50px;
+    right: 30px;
+}
+
+#scroll_to_top img {
+    width: 25px;
+}
+
+i{
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.bi{
+    padding: 10px;
+}
+
+.titre {
+    text-align: center;
+    margin: 50px;
+}
+
+#header {
+    padding: 20px;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-bottom: 2px solid #00d9ff; /* Bordure inférieure */
+    background-color: #0e0e0e; /* Couleur de fond */
+}
+
+.note{
+    margin: 150px 0 40px 0;
+}
+
+.TotalNote {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.note p {
+    background-color: #0e0e0e;
+    color: #00d9ff;
+    padding: 15px;
+    width: 45%;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    margin-bottom: 10px; /* Ajout pour l'espacement entre les paragraphes */
+    display: flex;
+    align-items: center; /* Alignement vertical */
+    justify-content: center; /* Alignement horizontal */
+}
+
+
+.form {
+    border: 2px solid #00d9ff; /* Bordure */
+    margin: 0 auto 50px; /* Marge supérieure et inférieure, centré horizontalement */
+    width: 80%;
+    padding: 20px;
+    background-color: #0e0e0e; /* Couleur de fond */
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3); /* Ombre */
+}
+
+fieldset {
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #00d9ff; /* Couleur du texte */
+}
+
+label {
+    margin: 15px 0;
+    font-weight: bold;
+    display: block;
+    color: #00d9ff; /* Couleur du texte */
+}
+
+select {
+    margin: 3px;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #00d9ff; /* Bordure */
+    border-radius: 5px;
+    color: #ffffff; /* Couleur du texte */
+    background-color: #0e0e0e; /* Couleur de fond */
+}
+
+.submitform {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    font-weight: bold;
+    background-color: #00d9ff; /* Couleur de fond */
+    color: #0e0e0e; /* Couleur du texte */
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Animation de transition */
+}
+
+.btn:hover {
+    background-color: #00a6cc; /* Couleur de fond au survol */
 }

@@ -7,13 +7,9 @@ document.getElementById("resetBtn").addEventListener("click", function () {
     selects[i].selectedIndex = 0;
   }
 
-   // Effacer les résultats
-   var resultElements = document.querySelectorAll('.TotalNote');
-   for (var j = 0; j < resultElements.length; j++) {
-       resultElements[j].textContent = ""; // Efface le contenu des éléments qui affichent les résultats
-   }
-
-
-
-
+  // Effacer les résultats
+  var resultElements = document.querySelectorAll(".TotalNote");
+  for (var j = 0; j < resultElements.length; j++) {
+    resultElements[j].textContent = ""; // Efface le contenu des éléments qui affichent les résultats
+  }
 });

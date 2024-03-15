@@ -2,7 +2,7 @@
 // Inclure le fichier Calcule_score.php pour le traitement du formulaire
 include "Calcule_score.php";
 $score = calculateScores(); // inclure la fonction
-
+$overallScore = calculateOverallScore();
 ?>
 
 <!DOCTYPE html>
@@ -52,12 +52,15 @@ $score = calculateScores(); // inclure la fonction
 
             <div class="note">
 
-                <?php if (!empty($score['baseScoreFormat']) && !empty($score['impactFormat']) && !empty($score['exploitabilityFormat']) && !empty($score['TemporalScoreFormat'])) : ?>
+                <?php if (!empty($score['baseScoreFormat']) && !empty($score['impactFormat']) && !empty($score['exploitabilityFormat']) && !empty($score['TemporalScoreFormat']) && !empty($score['EnvironmentalScoreFormat']) && !empty($score['AdjustedImpactFormat'])) : ?>
                     <div class="TotalNote">
-                        <p id="ExploitNote"> Note d'exploitabilité : <?php echo $score["exploitabilityFormat"]; ?> </p>
                         <p id="BaseNote"> Note de base : <?php echo $score["baseScoreFormat"]; ?> </p>
                         <p id="ImpactNote"> Note d'impact : <?php echo $score["impactFormat"]; ?> </p>
+                        <p id="ExploitNote"> Note d'exploitabilité : <?php echo $score["exploitabilityFormat"]; ?> </p>
                         <p id="TemporelNote"> Note temporel : <?php echo $score['TemporalScoreFormat']; ?> </p>
+                        <p id="EnvironmentalNote"> Note environnemental : <?php echo $score['EnvironmentalScoreFormat']; ?> </p>
+                        <p id="AdjustedImpactNote"> Note impact ajusté : <?php echo $score['AdjustedImpactFormat']; ?> </p>
+                        <p id="OverallScoreNote"> Note Overall Score : <?php echo $overallScore; ?> </p>
                     </div>
                 <?php endif; ?>
 
@@ -186,6 +189,83 @@ $score = calculateScores(); // inclure la fonction
                             <option value="UC" <?= isset($_GET['RC']) && $_GET['RC'] == 'UC' ? 'selected' : '' ?>>Unconfirmed (RC:UC)</option>
                             <option value="UR" <?= isset($_GET['RC']) && $_GET['RC'] == 'UR' ? 'selected' : '' ?>>Uncorroborated (RC:UR)</option>
                             <option value="C" <?= isset($_GET['RC']) && $_GET['RC'] == 'C' ? 'selected' : '' ?>>Confirmed (RC:C)</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset id="ScoreEnvironmental">
+
+            <legend id="header">Mesures de score Environnemental</legend>
+
+            <div class="scoreBase">
+                <div class="row g-3" id="environmental">
+                
+                    <h2>Modificateurs généraux</h2>
+
+                    <div class="col-md-4">
+
+                        <label for="CDP">Collateral Damage Potential (CDP):</label>
+                        <select name="CDP" id="CDP" class="form-control">
+                            <option value="ND" <?= isset($_GET['CDP']) && $_GET['CDP'] == 'ND' ? 'selected' : '' ?>>Not Defined (CDP:ND)</option>
+                            <option value="N" <?= isset($_GET['CDP']) && $_GET['CDP'] == 'N' ? 'selected' : '' ?>>None (CDP:N)</option>
+                            <option value="L" <?= isset($_GET['CDP']) && $_GET['CDP'] == 'L' ? 'selected' : '' ?>>Low (light loss) (CDP:L)</option>
+                            <option value="LM" <?= isset($_GET['CDP']) && $_GET['CDP'] == 'LM' ? 'selected' : '' ?>>Low-Medium (CDP:LM)</option>
+                            <option value="MH" <?= isset($_GET['CDP']) && $_GET['CDP'] == 'MH' ? 'selected' : '' ?>>Medium-High (CDP:MH)</option>
+                            <option value="H" <?= isset($_GET['CDP']) && $_GET['CDP'] == 'H' ? 'selected' : '' ?>>High (catastrophic loss) (CDP:H)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label for="TD">Target Distribution (TD):</label>
+                        <select name="TD" id="TD" class="form-control">
+                            <option value="ND" <?= isset($_GET['TD']) && $_GET['TD'] == 'ND' ? 'selected' : '' ?>>Not Defined (TD:ND)</option>
+                            <option value="N" <?= isset($_GET['TD']) && $_GET['TD'] == 'N' ? 'selected' : '' ?>>None [0%] (TD:N)</option>
+                            <option value="L" <?= isset($_GET['TD']) && $_GET['TD'] == 'L' ? 'selected' : '' ?>>Low [0-25%] (TD:L)</option>
+                            <option value="M" <?= isset($_GET['TD']) && $_GET['TD'] == 'M' ? 'selected' : '' ?>>Medium [26-75%] (TD:M)</option>
+                            <option value="H" <?= isset($_GET['TD']) && $_GET['TD'] == 'H' ? 'selected' : '' ?>>High [76-100%] (TD:H)</option>
+                        </select>
+
+                    </div>
+
+                    <h2>Modificateurs de sous-score d'impact</h2>
+
+                    <div class="col-md-4">
+
+                        <label for="CR">Confidentiality Requirement (CR):</label>
+                        <select name="CR" id="CR" class="form-control">
+                            <option value="ND" <?= isset($_GET['CR']) && $_GET['CR'] == 'ND' ? 'selected' : '' ?>>Not Defined (CR:ND)</option>
+                            <option value="L" <?= isset($_GET['CR']) && $_GET['CR'] == 'L' ? 'selected' : '' ?>>Low (CR:L)</option>
+                            <option value="M" <?= isset($_GET['CR']) && $_GET['CR'] == 'M' ? 'selected' : '' ?>>Medium (CR:M)</option>
+                            <option value="H" <?= isset($_GET['CR']) && $_GET['CR'] == 'H' ? 'selected' : '' ?>>High (CR:H)</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label for="IR">Integrity Requirement (IR):</label>
+                        <select name="IR" id="IR" class="form-control">
+                            <option value="ND" <?= isset($_GET['IR']) && $_GET['IR'] == 'ND' ? 'selected' : '' ?>>Not Defined (IR:ND)</option>
+                            <option value="L" <?= isset($_GET['IR']) && $_GET['IR'] == 'L' ? 'selected' : '' ?>>Low (IR:L)</option>
+                            <option value="M" <?= isset($_GET['IR']) && $_GET['IR'] == 'M' ? 'selected' : '' ?>>Medium (IR:M)</option>
+                            <option value="H" <?= isset($_GET['IR']) && $_GET['IR'] == 'H' ? 'selected' : '' ?>>High (IR:H)</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label for="AR">Availability Requirement (AR):</label>
+                        <select name="AR" id="AR" class="form-control">
+                            <option value="ND" <?= isset($_GET['AR']) && $_GET['AR'] == 'ND' ? 'selected' : '' ?>>Not Defined (AR:ND)</option>
+                            <option value="L" <?= isset($_GET['AR']) && $_GET['AR'] == 'L' ? 'selected' : '' ?>>Low (AR:L)</option>
+                            <option value="M" <?= isset($_GET['AR']) && $_GET['AR'] == 'M' ? 'selected' : '' ?>>Medium (AR:M)</option>
+                            <option value="H" <?= isset($_GET['AR']) && $_GET['AR'] == 'H' ? 'selected' : '' ?>>High (AR:H)</option>
                         </select>
 
                     </div>
