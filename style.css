@@ -145,7 +145,6 @@ select{
 } */
 
 
-
 * {
     padding: 0;
     margin: 0;
@@ -154,8 +153,13 @@ select{
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0e0e0e; /* Couleur de fond */
-    color: #ffffff; /* Couleur du texte */
+    background-color: #F0F0F0; /* Couleur de fond */
+    color: #333333; /* Couleur du texte */
+}
+
+.navbar{
+    background-color: #F0F0F0;
+    border-bottom: 2px solid #999999;
 }
 
 #scroll_to_top {
@@ -171,7 +175,7 @@ body {
 }
 
 i{
-    color: rgb(255, 255, 255);
+    color: #333333;
     font-size: 35px;
     font-weight: bold;
 }
@@ -190,8 +194,8 @@ i{
     text-align: center;
     font-size: 2.5rem;
     font-weight: bold;
-    border-bottom: 2px solid #00d9ff; /* Bordure inférieure */
-    background-color: #0e0e0e; /* Couleur de fond */
+    border-bottom: 2px solid #999999; /* Bordure inférieure */
+    background-color: #F0F0F0; /* Couleur de fond */
 }
 
 .note{
@@ -206,15 +210,15 @@ i{
 }
 
 .note p {
-    background-color: #0e0e0e;
-    color: #00d9ff;
+    background-color: #E6E6E6;
+    color: #333333;
     padding: 15px;
     width: 45%;
     text-align: center;
     font-weight: bold;
     margin-top: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    box-shadow: 0 0 20px rgba(150, 150, 150, 0.3);
     margin-bottom: 10px; /* Ajout pour l'espacement entre les paragraphes */
     display: flex;
     align-items: center; /* Alignement vertical */
@@ -223,12 +227,12 @@ i{
 
 
 .form {
-    border: 2px solid #00d9ff; /* Bordure */
+    border: 2px solid #999999; /* Bordure */
     margin: 0 auto 50px; /* Marge supérieure et inférieure, centré horizontalement */
     width: 80%;
     padding: 20px;
-    background-color: #0e0e0e; /* Couleur de fond */
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3); /* Ombre */
+    background-color: #F0F0F0; /* Couleur de fond */
+    box-shadow: 0 0 20px rgba(204, 204, 204, 0.3); /* Ombre */
 }
 
 fieldset {
@@ -238,24 +242,24 @@ fieldset {
 legend {
     font-weight: bold;
     font-size: 1.5rem;
-    color: #00d9ff; /* Couleur du texte */
+    color: #666666; /* Couleur du texte */
 }
 
 label {
     margin: 15px 0;
     font-weight: bold;
     display: block;
-    color: #00d9ff; /* Couleur du texte */
+    color: #666666; /* Couleur du texte */
 }
 
 select {
     margin: 3px;
     padding: 10px;
     text-align: center;
-    border: 2px solid #00d9ff; /* Bordure */
+    border: 2px solid #CCCCCC; /* Bordure */
     border-radius: 5px;
-    color: #ffffff; /* Couleur du texte */
-    background-color: #0e0e0e; /* Couleur de fond */
+    color: #333333; /* Couleur du texte */
+    background-color: #E6E6E6; /* Couleur de fond */
 }
 
 .submitform {
@@ -265,15 +269,19 @@ select {
 
 .btn {
     font-weight: bold;
-    background-color: #00d9ff; /* Couleur de fond */
-    color: #0e0e0e; /* Couleur du texte */
+    background-color: #FFFFF0; /* Couleur de fond */
+    color: #333333; /* Couleur du texte */
     padding: 15px 30px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease; /* Animation de transition */
+    border: 2px solid transparent;
 }
 
 .btn:hover {
-    background-color: #00a6cc; /* Couleur de fond au survol */
+    background-color: #E6E6E6; /* Couleur de fond au survol */
+    border-color: #CCCCCC; /* Couleur de bordure au survol */
+    color: black;
+    font-weight: 900;
 }

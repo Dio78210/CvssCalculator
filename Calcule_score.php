@@ -12,6 +12,7 @@ function calculateScores()
 
     $impact = 0;
     $exploitability = 0;
+    // récuperation des paramettres du formulaire via la methode GET en utilisant $_GET qui estr une variable global prédefini
 
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['AV']) && isset($_GET['AC']) && isset($_GET['PR']) && isset($_GET['C']) && isset($_GET['I']) && isset($_GET['A']) && isset($_GET['E']) && isset($_GET['RL']) && isset($_GET['RC']) && isset($_GET['CDP']) && isset($_GET['TD']) && isset($_GET['CR']) && isset($_GET['IR']) && isset($_GET['AR'])) {
         // Récupérer les données du formulaire dans un tableau
